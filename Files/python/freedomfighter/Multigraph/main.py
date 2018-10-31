@@ -1,5 +1,5 @@
 
-import function as db, os #gets all functions from the function module as database 'db'
+import Multigraph as db, os #gets all functions from the function module as database 'db'
 from matplotlib import pyplot as plt
 db.bessie()
 # the database file is declared here to be later used by SD function called in multifile.
