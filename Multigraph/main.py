@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 db.bessie()
 # the database file is declared here to be later used by SD function called in multifile.
 # it is not expected to change so it is not a user input
-economicdata = '/Users/takudzwa/Files/python/freedomfighter/Multigraph/WB_DATA_PSS.txt'
+economicdata = 'WB_DATA_PSS.txt'
 economicheaders = db.create_qfile(economicdata,'quantities.txt')
 def main():
     db.master(economicdata,'quantities.txt')
