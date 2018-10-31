@@ -140,7 +140,7 @@ def turtlecommand(file):
     turtle = (x, y, angle, state)
     f = open(file, 'r')
     numberOfInst = fileLen(file)                        # assigns variable to number of command/argument instruction lines in file
-    print('processing ' + str(numberOfInst) + ' instructions.')   # for debugging
+    print('processing ' + str(numberOfInst) + ' instructions...')   # for debugging
     for li in f:
         listOfInst = li.split(',')
         try:
