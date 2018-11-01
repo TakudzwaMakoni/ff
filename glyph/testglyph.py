@@ -11,7 +11,13 @@ imdb = ['glyphs/space.png', 'glyphs/la1.png', 'glyphs/lb.png', 'glyphs/lc.png', 
         'glyphs/la2.png', 'glyphs/le2.png', 'glyphs/li2.png', 56, 57, 58, 59, 60, 61,
         'glyphs/ca2.png', 'glyphs/ce2.png', 'glyphs/ci2.png', 65, 64, 67, 68, 69, 70, 'glyphs/stop.png',
         'glyphs/comma.png', 73, 74, 75, 76, 77, 78, 79]
-imdb2 = ['newglyphs/1.png','newglyphs/2.png','newglyphs/3.png','newglyphs/4.png','newglyphs/5.png','newglyphs/6.png','newglyphs/7.png','newglyphs/8.png',
+
+imdb2 = ['redglyphs/1.png','redglyphs/2.png','redglyphs/3.png','redglyphs/4.png','redglyphs/5.png','redglyphs/6.png','redglyphs/7.png','redglyphs/8.png',
+         'redglyphs/9.png','redglyphs/10.png','redglyphs/11.png','redglyphs/12.png','redglyphs/13.png','redglyphs/14.png','redglyphs/15.png','redglyphs/16.png',
+         'redglyphs/17.png','redglyphs/18.png','redglyphs/19.png','redglyphs/20.png','redglyphs/21.png','redglyphs/22.png','redglyphs/23.png','redglyphs/24.png',
+         'redglyphs/25.png','redglyphs/26.png','redglyphs/27.png','redglyphs/28.png','redglyphs/29.png','redglyphs/0.png',
+         
+         'newglyphs/1.png','newglyphs/2.png','newglyphs/3.png','newglyphs/4.png','newglyphs/5.png','newglyphs/6.png','newglyphs/7.png','newglyphs/8.png',
          'newglyphs/9.png','newglyphs/10.png','newglyphs/11.png','newglyphs/12.png','newglyphs/13.png','newglyphs/14.png','newglyphs/15.png','newglyphs/16.png',
          'newglyphs/17.png','newglyphs/18.png','newglyphs/19.png','newglyphs/20.png','newglyphs/21.png','newglyphs/22.png','newglyphs/23.png','newglyphs/24.png',
          'newglyphs/25.png','newglyphs/26.png','newglyphs/27.png','newglyphs/28.png','newglyphs/29.png','newglyphs/0.png']
@@ -24,6 +30,17 @@ def bessie():
     print('\n')
 
 
+def fix(li):
+    li2 = []
+    for el in li:
+        if isinstance(el,str) == True:
+            count = 0
+            for i in el:
+                li2.append(i)
+                count == count + 1
+        else:
+            li2.append(el)
+    return li2
 
 
 #cleanup will automatically remove the generated imagelines
@@ -61,7 +78,7 @@ def intersperse(lst, item):
 #find and replace (for words). the same function can be modified for
 #numbers abover 9
 def frw(string):
-    a = [('ch','x'),('th','q'),('sh','c')]
+    a = [('ch','x'),('th','q'),('sh','c'),('ih','y')]
     for ch in a:
         if ch[0] in string:
             string = string.replace(ch[0],ch[1])
@@ -71,11 +88,28 @@ def frw(string):
 #the message
 def translate(message,database=imdb2):
     nmessage = frw(message)
-    a = list(nmessage)
-    b = ['--' if x==' ' else x for x in a]
-    c = intersperse(b,' ')
-    dict1 ={"--":"glyphs/space.png"," ":"glyphs/smallspace.png","1":database[0],"2":database[1],"3":database[2],"4":database[3],"5":database[4],"6":database[5],"7":database[6],"8":database[7],"9":database[8],"10":database[9],"11":database[10],"12":database[11],"13":database[12],"14":database[13],"15":database[14],"16":database[15],"17":database[16],"18":database[17],"19":database[18],"20":database[19],"21":database[20],"22":database[21],"23":database[22],"24":database[23],"25":database[24],"26":database[25],"27":database[26],"28":database[27],"29":database[28]}
-    imagelist = ["glyphs/smallspace.png" if ch == "\n" else dict1[ch] for ch in c]
+    #print('\n',nmessage)
+    a = nmessage
+    #print(a)
+    #b =  ['--' if x==' ' else x for x in a]
+    b = a.split(' ')
+    #print(b)
+    
+    c = intersperse(b,'-')
+    
+    newlist = []
+    for j in c:
+        try:
+            newlist.append(int(j))
+        except:
+            newlist.append(j)
+
+    d = intersperse(fix(newlist),' ')
+
+    dict1 ={"-":"glyphs/space.png"," ":"glyphs/smallspace.png",1:database[0],2:database[1],3:database[2],4:database[3],5:database[4],6:database[5],7:database[6],8:database[7],9:database[8],10:database[9],11:database[10],12:database[11],13:database[12],14:database[13],15:database[14],16:database[15],17:database[16],18:database[17],19:database[18],20:database[19],21:database[20],22:database[21],23:database[22],24:database[23],25:database[24],26:database[25],27:database[26],28:database[27],29:database[28],0:database[29],
+
+    "l":database[30],"t":database[31] ,"g":database[32] ,"v":database[33] ,"k":database[34] ,"ee":database[35] ,"n":database[36] ,"w":database[37] ,"d":database[38] ,"m":database[39] ,"s":database[40] ,"x":database[41] ,"q":database[42] ,"i":database[43] ,"h":database[44] ,"å":database[45] ,"z":database[46] ,"e":database[47] ,"oo":database[48],"r":database[49] ,"oh":database[50] ,"j":database[51] ,"f":database[52] ,"p":database[53] ,"u":database[54] ,"a":database[55] ,"y":database[56] ,"b":database[57] ,"c":database[58] ,"o":database[59]}
+    imagelist = ["glyphs/smallspace.png" if ch == "\n" else dict1[ch] for ch in d]
     return imagelist
 
 #checks if there already is a message 'imageline.txt' and

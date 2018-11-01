@@ -5,7 +5,7 @@ g.bessie()
 def main():
     #g.checkforimagline()
     g.getimportedfile()
-    spacingsettings = ('n',1) #g.getspacingopt()
+    spacingsettings = ('n', 1)#g.getspacingopt()
     characterspacing = spacingsettings[0]
     linespacing = spacingsettings[1]
     g.typewriter()
