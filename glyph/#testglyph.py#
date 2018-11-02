@@ -151,15 +151,15 @@ def getimportedfile(margin=' '):
 
 #allows the user to type line by line the message to be saved
 #to imageline.txt
-def typewriter(isimported):
-    print('info: enter "|end" on a new line to end entry any time.')
+def typewriter(isimported,margin=' '):
+    print("info: enter '|end' on a new line to end entry any time.")
     with open('imageline.txt', 'a') as f1:
-        print('entering typewriter mode... ')
         while True:
-            message = frw(input('insert message (|end to exit typewriter) '))
+            print('entering typewriter mode... ')
+            message = frw(input('insert message (|end to exit typewriter) ')
             if message == '|end':
                 break
-            if message == '|import':
+            elif message == '|import':
                 getimportedfile()
                 break
             elif isimported == True:
@@ -184,15 +184,14 @@ def translatemessage(addspaces='n'):
 
 #the image is created using the translated message returned by the translatemessage
 #function, done by attaching symbol images horizontally to create each line, then attaching the lines vertically
-def createmessageimage(listoftranslatedlines, numspaces,footer=0,header=-1,hfsize=5,msize=3):
+def createmessageimage(listoftranslatedlines, numspaces,footer=0,header=-1,hfsize=8,msize=3):
     count = 0
     imlist = []
     newlinespace    =  'glyphs/newlinespace.png'
     smallspace      =    'glyphs/smallspace.png'
-    
     for line in listoftranslatedlines:
-        #adds the margin
-        for i in range(msize):
+    #adds the margin
+    for i in range(msize):
             line.insert(0,smallspace)
             line.insert(-1,smallspace)
         

@@ -1,14 +1,15 @@
 #glyph
-import testglyph as g #test mode: testglyph
+import glyph as g #test mode: testglyph
 
 g.bessie()
 def main():
     #g.checkforimagline()
-    g.getimportedfile()
-    spacingsettings = ('n', 1)#g.getspacingopt()
+    importmode = g.getimportedfile()
+    spacingsettings = ('y', 1)#g.getspacingopt()
     characterspacing = spacingsettings[0]
     linespacing = spacingsettings[1]
-    g.typewriter()
+    if importmode != True:
+        g.typewriter(g.getimportedfile)
     count = g.createmessageimage(
         g.translatemessage(characterspacing),
         linespacing

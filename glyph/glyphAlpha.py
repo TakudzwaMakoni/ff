@@ -11,13 +11,7 @@ imdb = ['glyphs/space.png', 'glyphs/la1.png', 'glyphs/lb.png', 'glyphs/lc.png', 
         'glyphs/la2.png', 'glyphs/le2.png', 'glyphs/li2.png', 56, 57, 58, 59, 60, 61,
         'glyphs/ca2.png', 'glyphs/ce2.png', 'glyphs/ci2.png', 65, 64, 67, 68, 69, 70, 'glyphs/stop.png',
         'glyphs/comma.png', 73, 74, 75, 76, 77, 78, 79]
-
-imdb2 = ['redglyphs/1.png','redglyphs/2.png','redglyphs/3.png','redglyphs/4.png','redglyphs/5.png','redglyphs/6.png','redglyphs/7.png','redglyphs/8.png',
-         'redglyphs/9.png','redglyphs/10.png','redglyphs/11.png','redglyphs/12.png','redglyphs/13.png','redglyphs/14.png','redglyphs/15.png','redglyphs/16.png',
-         'redglyphs/17.png','redglyphs/18.png','redglyphs/19.png','redglyphs/20.png','redglyphs/21.png','redglyphs/22.png','redglyphs/23.png','redglyphs/24.png',
-         'redglyphs/25.png','redglyphs/26.png','redglyphs/27.png','redglyphs/28.png','redglyphs/29.png','redglyphs/0.png',
-         
-         'newglyphs/1.png','newglyphs/2.png','newglyphs/3.png','newglyphs/4.png','newglyphs/5.png','newglyphs/6.png','newglyphs/7.png','newglyphs/8.png',
+imdb2 = ['newglyphs/1.png','newglyphs/2.png','newglyphs/3.png','newglyphs/4.png','newglyphs/5.png','newglyphs/6.png','newglyphs/7.png','newglyphs/8.png',
          'newglyphs/9.png','newglyphs/10.png','newglyphs/11.png','newglyphs/12.png','newglyphs/13.png','newglyphs/14.png','newglyphs/15.png','newglyphs/16.png',
          'newglyphs/17.png','newglyphs/18.png','newglyphs/19.png','newglyphs/20.png','newglyphs/21.png','newglyphs/22.png','newglyphs/23.png','newglyphs/24.png',
          'newglyphs/25.png','newglyphs/26.png','newglyphs/27.png','newglyphs/28.png','newglyphs/29.png','newglyphs/0.png']
@@ -30,26 +24,23 @@ def bessie():
     print('\n')
 
 
-def fix(li):
-    li2 = []
-    for el in li:
-        if isinstance(el,str) == True:
-            count = 0
-            for i in el:
-                li2.append(i)
-                count == count + 1
-        else:
-            li2.append(el)
-    return li2
-
-
 #cleanup will automatically remove the generated imagelines
 #once they have been used to make the final image.
 #It will also ask the user if they want to keep the message imageline.txt
 def cleanup(count):
     for i in range(count):
         os.remove('line'+str(i)+'.png')
-
+    cont = 'y'
+    while cont == 'y':
+        keep = input("keep 'imageline.txt' containing the original text? (y/n) ")
+        if keep == 'n':
+            os.remove('imageline.txt')
+            return
+        elif keep == 'y':
+            return
+        else:
+            print('invalid entry')
+            cont = 'y'
 
 #will ask the user if they want to add character spacing, and what to
 #set the linespacing to
@@ -78,38 +69,86 @@ def intersperse(lst, item):
 #find and replace (for words). the same function can be modified for
 #numbers abover 9
 def frw(string):
-    a = [('ch','x'),('th','q'),('sh','c'),('ih','y')]
+    a = [('ch','x'),('th','q'),('sh','c')]
     for ch in a:
         if ch[0] in string:
-            string = string.replace(ch[0],ch[1])
+            string = string.replace(ch[0],ch[1] )
     return string
 #will read the message in imageline.txt character by character and
 #produce an ordered list of imagefiles containing symbols to  translate
 #the message
 def translate(message,database=imdb2):
     nmessage = frw(message)
-    #print('\n',nmessage)
-    a = nmessage
-    #print(a)
-    #b =  ['--' if x==' ' else x for x in a]
-    b = a.split(' ')
-    #print(b)
-    
-    c = intersperse(b,'-')
-    
-    newlist = []
-    for j in c:
-        try:
-            newlist.append(int(j))
-        except:
-            newlist.append(j)
-
-    d = intersperse(fix(newlist),' ')
-
-    dict1 ={"-":"glyphs/space.png"," ":"glyphs/smallspace.png",1:database[0],2:database[1],3:database[2],4:database[3],5:database[4],6:database[5],7:database[6],8:database[7],9:database[8],10:database[9],11:database[10],12:database[11],13:database[12],14:database[13],15:database[14],16:database[15],17:database[16],18:database[17],19:database[18],20:database[19],21:database[20],22:database[21],23:database[22],24:database[23],25:database[24],26:database[25],27:database[26],28:database[27],29:database[28],0:database[29],
-
-    "l":database[30],"t":database[31] ,"g":database[32] ,"v":database[33] ,"k":database[34] ,"ee":database[35] ,"n":database[36] ,"w":database[37] ,"d":database[38] ,"m":database[39] ,"s":database[40] ,"x":database[41] ,"q":database[42] ,"i":database[43] ,"h":database[44] ,"å":database[45] ,"z":database[46] ,"e":database[47] ,"oo":database[48],"r":database[49] ,"oh":database[50] ,"j":database[51] ,"f":database[52] ,"p":database[53] ,"u":database[54] ,"a":database[55] ,"y":database[56] ,"b":database[57] ,"c":database[58] ,"o":database[59]}
-    imagelist = ["glyphs/smallspace.png" if ch == "\n" else dict1[ch] for ch in d]
+    a = list(nmessage)
+    b = ['--' if x==' ' else x for x in a]
+    c = intersperse(b,' ')
+    imagelist = []
+    for character in c:
+        #################################
+        if character == '--':
+            imagelist.append('glyphs/space.png')
+        if character == ' ':
+            imagelist.append('glyphs/smallspace.png')
+        if character == '1' or character == 'l':
+            imagelist.append(database[0])
+        if character == '2' or character=='t':
+            imagelist.append(database[1])
+        if character == '3' or character=='g':
+            imagelist.append(database[2])
+        if character == '4' or character=='v':
+            imagelist.append(database[3])
+        if character == '5' or character=='k':
+            imagelist.append(database[4])
+        if character == '6' or character=='ee':
+            imagelist.append(database[5])
+        if character == '7' or character=='n':
+            imagelist.append(database[6])
+        if character == '8' or character=='w':
+            imagelist.append(database[7])
+        if character == '9' or character=='d':
+            imagelist.append(database[8])
+        if character == '10' or character=='m':
+            imagelist.append(database[9])
+        if character == '11' or character=='s':
+            imagelist.append(database[10])
+        if character == 'x': #12 or ch
+            imagelist.append(database[11])
+        if character == 'q': #13 or th
+            imagelist.append(database[12])
+        if character == '14' or character=='i':
+            imagelist.append(database[13])
+        if character == '15' or character=='h':
+            imagelist.append(database[14])
+        if character == 'å':
+            imagelist.append(database[15])
+        if character == '17' or character=='z':
+            imagelist.append(database[16])
+        if character == '18' or character=='e':
+            imagelist.append(database[17])
+        if character == '19' or character=='oo':
+            imagelist.append(database[18])
+        if character == '20' or character=='r':
+            imagelist.append(database[19])
+        if character == '21' or character=='oh':
+            imagelist.append(database[20])
+        if character == '22' or character=='j':
+            imagelist.append(database[21])
+        if character == '23' or character=='f':
+            imagelist.append(database[22])
+        if character == '24' or character=='p':
+            imagelist.append(database[23])
+        if character == '25' or character=='u':
+            imagelist.append(database[24])
+        if character == '26' or character=='a':
+            imagelist.append(database[25])
+        if character == '27' or character=='y' or character=='ih':
+            imagelist.append(database[26])
+        if character == '28' or character=='b':
+            imagelist.append(database[27])
+        if character == 'c': #sh or 29
+            imagelist.append(database[28])
+        if character == '0' or character=='o':
+            imagelist.append(database[29])
     return imagelist
 
 #checks if there already is a message 'imageline.txt' and
@@ -131,21 +170,6 @@ def checkforimagline():
             cont = 'n'
 
 
-def getimportedfile():
-    filename = input('enter file name (.txt) ')
-    f1 = open('imageline.txt', 'w')
-    f2 = open(filename,'r')
-    lines = f2.readlines()
-    
-    for i in lines:
-        f1.write(i)
-    f1.close()
-    f2.close()
-    print('the file "' + filename + '" was imported')
-
-
-
-
 
 #allows the user to type line by line the message to be saved
 #to imageline.txt
@@ -157,14 +181,6 @@ def typewriter():
             if message == '|end':
                 f1.close()
                 break
-            elif message == '|import':
-                f1.close()
-                getimportedfile()
-                break
-            elif message == '|Hspace':
-                Hspacing()
-            elif message == '|Vspace':
-                Vspacing()
             else:
                 f1.write(message + '\n')
         f1.close()
@@ -224,6 +240,7 @@ def createmessageimage(listoftranslatedlines, numspaces):
     imrevf = []
     for i in reversed(finalimages):
         imrevf.append(i)
+        
         widths, heights = zip(*(i.size for i in imrevf))
         max_width = max(widths)
         total_height = sum(heights)
@@ -233,10 +250,8 @@ def createmessageimage(listoftranslatedlines, numspaces):
             new_im.paste(im, (0, y_offset))
             y_offset += im.size[1]
     msg = new_im.transpose(I.FLIP_LEFT_RIGHT)
-    saveask = input('save file? (y/n) ')
-    if saveask != 'n':
-        saveasask = input('save image file as: ')
-        msg.save(saveasask +'.png')
+    msg.save('final0.png')
     return count
+
 
 
