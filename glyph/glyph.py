@@ -1,4 +1,4 @@
-import os,re
+import os,re, base30
 import PIL.Image as I
 
 
@@ -26,21 +26,30 @@ imdb2 = ['redglyphs/1.png','redglyphs/2.png','redglyphs/3.png','redglyphs/4.png'
 
 def bessie():
     print('\n')
-    print(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n\n        glyph 1.0.0   freedomfighter (ff), Milli group (c).    \n                                 2017-2018                   \n                         Written in Python 3.6 by            \n                             Takudzwa Makoni                 \n\n     GitHub: https://github.com/Millisoft/freedomfighter     \n\n                              \n\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n" )
+    print(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n\n        glyph 2.0.1   freedomfighter (ff) (c), Milli (c).    \n                                 2017-2018                   \n                         Written in Python 3.6 by            \n                             Takudzwa Makoni                 \n\n     GitHub: https://github.com/Millisoft/freedomfighter     \n\n                              \n\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n" )
     print('\n')
 
-
+#converts elements to string splits up the string characters
+#in an element into separate elements of a list, also converts any
+#integers to base 30
 def fix(li):
     li2 = []
     for el in li:
-        if isinstance(el,str) == True:
-            count = 0
+        if isinstance(el,str):
             for i in el:
                 li2.append(i)
-                count == count + 1
         else:
             li2.append(el)
-    return li2
+
+    li3 = []
+    for el in li2:
+        if isinstance(el,int):
+            c = base30.converter(el)
+            c.append('\n')
+            li3 += c
+        else:
+            li3.append(el)
+    return li3
 
 
 #cleanup will automatically remove the generated imagelines
@@ -82,19 +91,17 @@ def frw(string):
     for ch in a:
         if ch[0] in string:
             string = string.replace(ch[0],ch[1])
+    # for el in string.split():
+    #    if el.isdigit():
+    #        el = ''.join(str(x) for x in base30.converter(el))
     return string
 #will read the message in imageline.txt character by character and
 #produce an ordered list of imagefiles containing symbols to  translate
 #the message
 def translate(message,database=imdb2):
-    #nmessage = frw(message)
-    #print('\n',nmessage)
-    a = message #nmessage
-    #print(a)
-    #b =  ['--' if x==' ' else x for x in a]
+   
+    a = message
     b = a.split(' ')
-    #print(b)
-    
     c = intersperse(b,'-')
     
     newlist = []
@@ -120,7 +127,7 @@ def checkforimagline():
         os.remove('imageline.txt')
 
 
-
+#opens file given by user and writes contents to imageline.txt
 def getimportedfile(margin=' '):
     importask = input('import file? (y/n) ')
     if importask == 'y':
@@ -129,18 +136,6 @@ def getimportedfile(margin=' '):
         open('imageline.txt', 'w').writelines([frw(l) for l in open(filename).readlines()])
         print('the file "' + filename + '" was imported')
         return True
-            # with open(filename,'r') as f2:
-            #with open('imageline.txt', 'w') as f1:
-               
-               #   for line in f2:
-        
-                #    message = '{}{}{}'.format(margin,frw(line),margin)
-                #    f1.write(message)
-                #   print(list(message))
-    
-                                              #f1.close()
-                                              #f2.close()
-        
     else:
         checkforimagline()
         return False
@@ -149,7 +144,7 @@ def getimportedfile(margin=' '):
 
 
 
-#allows the user to type line by line the message to be saved
+#allows the user to type line by line into the terminal on prompt. the message is saved
 #to imageline.txt
 def typewriter(isimported):
     print('info: enter "|end" on a new line to end entry any time.')
@@ -167,24 +162,26 @@ def typewriter(isimported):
                 break
             else:
                 f1.write(message + '\n')
+
 #opens the imageline.txt file and reads it line by line.
 #the translate function will then be performed onto each line
 #it then pruduces a list containing lists of the imagefiles for each translated line, which is the
 #returned translated message
 def translatemessage(addspaces='n'):
-    f2  = open('imageline.txt', 'r')
-    file = f2.readlines()
-    translatedmessage = []
-    for line in file:
-        translatedline = translate(line)
-        if addspaces == 'y':
-            intersperse(translatedline,'glyphs/smallspace.png')
-        translatedmessage.append(translatedline)
+    with open('imageline.txt', 'r') as f2:
+        file = f2.readlines()
+        translatedmessage = []
+        for line in file:
+            translatedline = translate(line)
+            if addspaces == 'y':
+                intersperse(translatedline,'glyphs/smallspace.png')
+            translatedmessage.append(translatedline)
     return translatedmessage
 
 #the image is created using the translated message returned by the translatemessage
-#function, done by attaching symbol images horizontally to create each line, then attaching the lines vertically
-def createmessageimage(listoftranslatedlines, numspaces,footer=0,header=-1,hfsize=5,msize=3):
+#function, done by attaching symbol images horizontally to create each line, then attaching the lines vertically -
+#creating an image matrix.
+def createmessageimage(listoftranslatedlines, numspaces, msize=3, hfsize=5):
     count = 0
     imlist = []
     newlinespace    =  'glyphs/newlinespace.png'
@@ -216,8 +213,6 @@ def createmessageimage(listoftranslatedlines, numspaces,footer=0,header=-1,hfsiz
                           
     #### modifications for reversal
     
-    
-
     count = len(imlist)
     iterative = 1
     for i in range(count):
@@ -227,8 +222,8 @@ def createmessageimage(listoftranslatedlines, numspaces,footer=0,header=-1,hfsiz
     
     #adds the header and footer
     for i in range(hfsize):
-        imlist.insert(header,newlinespace)
-        imlist.insert(footer,newlinespace)
+        imlist.insert(-1,newlinespace)
+        imlist.insert(0,newlinespace)
     
     finalimages = list(map(I.open, imlist))
 
