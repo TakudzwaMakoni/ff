@@ -1,4 +1,4 @@
-import os,re, base30
+import os,re, base30, subprocess
 import PIL.Image as I
 
 
@@ -25,10 +25,12 @@ imdb2 = ['redglyphs/1.png','redglyphs/2.png','redglyphs/3.png','redglyphs/4.png'
 
 
 def bessie():
+    
     print('\n')
     print(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n\n        glyph 2.0.1   freedomfighter (ff) (c), Milli (c).    \n                                 2017-2018                   \n                         Written in Python 3.6 by            \n                             Takudzwa Makoni                 \n\n     GitHub: https://github.com/Millisoft/freedomfighter     \n\n                              \n\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n" )
     print('\n')
-
+    
+    subprocess.Popen(['afplay','-v', '0.01','trinkets/login.wav']) #run process in terminal (for terminal application) - is powerful.
 #converts elements to string splits up the string characters
 #in an element into separate elements of a list, also converts any
 #integers to base 30

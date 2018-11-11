@@ -1,4 +1,5 @@
 #glyph
+import os
 import glyph as g #test mode: testglyph
 
 g.bessie()
