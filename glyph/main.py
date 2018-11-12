@@ -5,12 +5,11 @@ import glyph as g #test mode: testglyph
 g.bessie()
 def main():
     #g.checkforimagline()
-    importmode = g.getimportedfile()
-    spacingsettings = ('y', 1)#g.getspacingopt()
+    g.getimportedfile()
+    spacingsettings = ('y', g.getspacingopt()) #set to 'y' to intersperse characters.
     characterspacing = spacingsettings[0]
     linespacing = spacingsettings[1]
-    if importmode != True:
-        g.typewriter(g.getimportedfile)
+    
     count = g.createmessageimage(
         g.translatemessage(characterspacing),
         linespacing

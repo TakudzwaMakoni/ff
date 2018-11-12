@@ -25,12 +25,12 @@ imdb2 = ['redglyphs/1.png','redglyphs/2.png','redglyphs/3.png','redglyphs/4.png'
 
 
 def bessie():
-    
     print('\n')
     print(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n\n        glyph 2.0.1   freedomfighter (ff) (c), Milli (c).    \n                                 2017-2018                   \n                         Written in Python 3.6 by            \n                             Takudzwa Makoni                 \n\n     GitHub: https://github.com/Millisoft/freedomfighter     \n\n                              \n\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n" )
     print('\n')
-    
-    subprocess.Popen(['afplay','-v', '0.01','trinkets/login.wav']) #run process in terminal (for terminal application) - is powerful.
+    subprocess.Popen(['afplay','-v', '0.075','trinkets/login.wav']) #run process in terminal (for terminal application) - is powerful.
+
+
 #converts elements to string splits up the string characters
 #in an element into separate elements of a list, also converts any
 #integers to base 30
@@ -65,20 +65,18 @@ def cleanup(count):
 #will ask the user if they want to add character spacing, and what to
 #set the linespacing to
 def getspacingopt():
-    cont = 'y'
-    while cont == 'y':
-        spcopt = input('add character spacing? (y/n) ')
-        linespacing = int(input('enter line spacing '))
-        if spcopt == 'y':
-            return spcopt, linespacing
-        elif spcopt == 'n':
-            return spcopt, linespacing
-        elif spcopt == '.quit':
+    while True:
+        linespacing = input('enter line spacing ')
+        if linespacing == '.quit':
             print('exiting program')
             exit(1)
         else:
-            print('invalid entry')
-            cont = 'y'
+            try:
+                ilinespacing = int(linespacing)
+                return ilinespacing
+            except:
+                print('you have not entered an integer!')
+                subprocess.Popen(['afplay','-v', '0.075','trinkets/error.wav'])
 
 #add characters between list or string
 def intersperse(lst, item):
@@ -130,17 +128,38 @@ def checkforimagline():
 
 
 #opens file given by user and writes contents to imageline.txt
-def getimportedfile(margin=' '):
-    importask = input('import file? (y/n) ')
-    if importask == 'y':
-        checkforimagline()
-        filename = input('enter file name (.txt) ')
-        open('imageline.txt', 'w').writelines([frw(l) for l in open(filename).readlines()])
-        print('the file "' + filename + '" was imported')
-        return True
-    else:
-        checkforimagline()
-        return False
+def getimportedfile():
+    while True:
+        importask = input('import file? (y/n) ')
+        if importask == 'y':
+            print('entering import mode...')
+            checkforimagline()
+            filename = input('enter file name (.txt) ')
+            if filename == '.quit':
+                print('exiting the program')
+                exit(1)
+            elif filename == '|type':
+                print('exiting import mode...')
+                typewriter()
+                break
+            else:
+                try:
+                    open('imageline.txt', 'w').writelines([frw(l) for l in open(filename).readlines()] + ['\n'])
+                    print('the file "' + filename + '" was imported')
+                    return True
+                except:
+                    print('error: could not open the file "' + filename + '.txt"')
+                    subprocess.Popen(['afplay','-v', '0.075','trinkets/error.wav'])
+        elif importask == '.quit':
+            print('exiting program')
+            exit(1)
+        elif importask == 'n':
+            print('exiting import mode...')
+            typewriter()
+            break
+        else:
+            print('invalid entry! enter "y" for yes or "n" for no.')
+            subprocess.Popen(['afplay','-v', '0.075','trinkets/error.wav'])
 
 
 
@@ -148,20 +167,21 @@ def getimportedfile(margin=' '):
 
 #allows the user to type line by line into the terminal on prompt. the message is saved
 #to imageline.txt
-def typewriter(isimported):
+def typewriter():
+    print('entering typewriter mode...')
     print('info: enter "|end" on a new line to end entry any time.')
     with open('imageline.txt', 'a') as f1:
-        print('entering typewriter mode... ')
         while True:
-            message = frw(input('insert message (|end to exit typewriter) '))
+            message = frw(input('insert message '))
             if message == '|end':
                 break
-            if message == '|import':
+            elif message == '|import':
+                print('exiting typwriter mode...')
                 getimportedfile()
                 break
-            elif isimported == True:
-                f1.write('\n')
-                break
+            elif message == '.quit':
+                print('exiting program')
+                exit(1)
             else:
                 f1.write(message + '\n')
 

@@ -1,5 +1,5 @@
 from matplotlib import pyplot as p
-import math, os
+import math, os, subprocess
 
 def checkforinstructions():
     cont = 'y'
@@ -43,6 +43,8 @@ def bessie():
     print('\n')
     print(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n\n    Airhead 1.2.1   freedomfighter (ff), Milli group (c).    \n                                 2017-2018                   \n                         Written in Python 3.6 by            \n                             Takudzwa Makoni                 \n\n     GitHub: https://github.com/Millisoft/freedomfighter     \n\n                 use ’.quit’ to exit the program             \n\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n" )
     print('\n')
+    
+    subprocess.Popen(['afplay','-v', '0.075','trinkets/login.wav']) #run process in terminal (for terminal application) - is powerful.
 
 
 def draw(points):                                   # draw function from 2.5; takes the x and y values and plots them in the forward down condition

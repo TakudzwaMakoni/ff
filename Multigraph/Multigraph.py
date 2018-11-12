@@ -1,5 +1,5 @@
 from matplotlib.pyplot import plot
-import os
+import os, subprocess
 
 
 # the master function is the main function of the program
@@ -21,7 +21,7 @@ def master(database_file, quantities_file):
         show_help = input(color.prompt + 'show user manual? (y/n), or any key to continue ' + color.end)
         if show_help == '.quit':
             print('exiting the program')
-            return
+            exit(1)
         if show_help == 'y':
             start_info()
         # the 'master-value' is a tuple containing the dataset, output
@@ -451,7 +451,7 @@ def bessie():
     print('\n')
     print(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n\n    Multigraph 2.1.1   freedomfighter (ff), Milli group (c).    \n                                 2017-2018                   \n                         Written in Python 3.6 by            \n                             Takudzwa Makoni                 \n\n     GitHub: https://github.com/Millisoft/freedomfighter     \n\n                 use ’.quit’ to exit the program             \n\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n" )
     print('\n')
-
+    subprocess.Popen(['afplay','-v', '0.075','trinkets/login.wav']) #run process in terminal (for terminal application) - is powerful.
 # this codeblock is needed to add color to some text in the console to differentiate
 # types of text such as prompts, errors and processed information.
 class color:
