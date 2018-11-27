@@ -1,7 +1,5 @@
 import PIL.Image as I
 
-#  K=#101010#;W=#E0E0E0#;Y=#FFD700#;B=#3474FC#;DR=#880000#
-#  DR/2W8K3Y4W34B2W2K4W16Y4W30B2K13
 filename = 'makoni.txt'
 
 with open(filename) as f:
