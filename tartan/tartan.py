@@ -1,6 +1,6 @@
 import PIL.Image as I
 
-filename = 'makoni.txt'
+filename = input('filename: ') + '.txt'
 
 with open(filename) as f:
     lines = f.readlines()
@@ -12,7 +12,7 @@ with open(filename) as f:
 unit_length = 2
 canvas_size = 1000
 canvas = I.new('RGB', (canvas_size, canvas_size), 'white')
-pallet = {'HG':'#285800','K':'#101010','R':'#C80000','W':'#E0E0E0','Y':'#E8C000', 'LN':'#C0C0C0','TK':'#8C7038','RB':'#0C585C','DR':'#880000','GO':'#FFD700','MB':'#3474FC'}
+pallet = {'HG':'#285800','K':'#101010','R':'#C80000','W':'#E0E0E0','Y':'#E8C000', 'LN':'#C0C0C0','TK':'#8C7038','RB':'#0C585C','DR':'#880000','GO':'#FFD700','MB':'#3474FC','RC':'#5C5C5C','BB':'#14283C','EG':'#004028'}
 offset = 0
 
 with open(filename) as f:
