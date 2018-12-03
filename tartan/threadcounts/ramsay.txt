@@ -3,8 +3,8 @@ DB 8
 R 2
 K 8
 R 24
-CW 8
+WW 8
 R 2
-CW 8
+WW 8
 K 8
 R 2
