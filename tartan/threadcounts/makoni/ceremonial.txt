@@ -1,0 +1,15 @@
+GO 4
+WW 2
+K 4
+WW 34
+MB 4
+WW 2
+K 4
+WW 16
+GO 4
+WW 30
+MB 4
+K 13
+DR 2
+WW 8
+K 2

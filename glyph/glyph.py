@@ -200,6 +200,18 @@ def translatemessage(addspaces='n'):
             translatedmessage.append(translatedline)
     return translatedmessage
 
+
+def rsz(img_object,scale):
+    nwidth, nheight = tuple( [ int(i * scale) for i in img_object.size ] )
+    if nwidth <= 0:
+        nwidth = 1
+    if nheight <= 0:
+        nheight = 1
+    nimg = img_object.resize( (nwidth, nheight) , I.ANTIALIAS )
+    return nimg
+
+
+
 #the image is created using the translated message returned by the translatemessage
 #function, done by attaching symbol images horizontally to create each line, then attaching the lines vertically -
 #creating an image matrix.
@@ -216,6 +228,11 @@ def createmessageimage(listoftranslatedlines, numspaces, msize=3, hfsize=5):
             line.insert(-1,smallspace)
         
         images = list(map(I.open, line))
+        #resize
+#        rimages = []
+#        for i in images:
+#            rimages.append( rsz(i,0.1) )
+        #transpose image
         imflip = []
         for i in images:
             new = i.transpose(I.FLIP_LEFT_RIGHT)
@@ -251,7 +268,7 @@ def createmessageimage(listoftranslatedlines, numspaces, msize=3, hfsize=5):
 
     imrevf = []
     for i in reversed(finalimages):
-        imrevf.append(i)
+        imrevf.append( rsz(i,0.2) )
         widths, heights = zip(*(i.size for i in imrevf))
         max_width = max(widths)
         total_height = sum(heights)
