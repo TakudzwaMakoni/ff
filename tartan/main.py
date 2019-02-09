@@ -1,3 +1,4 @@
+#tartan 2019 by Takudzwa Makoni (c)
 import tartan as t
 import gc
 

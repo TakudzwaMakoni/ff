@@ -1,3 +1,4 @@
+#tartan 2019 by Takudzwa Makoni (c)
 import PIL.Image as I
 import subprocess, os, gc, math
 
