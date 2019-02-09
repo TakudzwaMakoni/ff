@@ -2,10 +2,14 @@ import PIL.Image as I
 import subprocess, os, gc, math
 
 def bessie(title, version, repo, company, year, language, author, git ):
+    """
     print('\n')
     print(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n\n\n        {} {},   {}, {}.    \n                                 {}                   \n                         Written in {} by            \n                             {}                 \n\n           github: {}     \n\n                              \n\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n".format(title, version, repo, company, year, language, author, git) )
     print('\n')
-    subprocess.Popen(['afplay','-v', '0.075','trinkets/login.wav']) #run process in terminal (for terminal application) - is powerful.
+    
+    #subprocess.Popen(['afplay','-v', '0.075','trinkets/login.wav']) #run process in terminal (for terminal application) - is powerful.
+    """
+    subprocess.Popen('./t/gws')
 
 def getsett(filename):
     with open(filename) as f:

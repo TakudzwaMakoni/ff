@@ -1,5 +1,7 @@
-K 10
-DB 10
-K 20
+KCO 10
+DB 5
+K 15
+KCO 2
+KCO 5
 W 2
-K 40
+KCO 40
