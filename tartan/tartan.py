@@ -1,6 +1,6 @@
 #tartan 2019 by Takudzwa Makoni (c)
 import PIL.Image as I
-import subprocess, os, gc, math
+import subprocess, os, gc, math, time
 
 def bessie(title, version, repo, company, year, language, author, git ):
     """
@@ -10,7 +10,9 @@ def bessie(title, version, repo, company, year, language, author, git ):
     
     #subprocess.Popen(['afplay','-v', '0.075','trinkets/login.wav']) #run process in terminal (for terminal application) - is powerful.
     """
+
     subprocess.Popen('./t/gws')
+    time.sleep(1)
 
 def getsett(filename):
     with open(filename) as f:
