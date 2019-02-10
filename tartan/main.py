@@ -1,3 +1,4 @@
+#tartan by Takudzwa Makoni (c) 2019
 import tartan as t
 import gc
 
